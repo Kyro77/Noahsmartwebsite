@@ -119,50 +119,48 @@
     </defs>
   </svg>
 
-    <div class="footer-waves">
-      <svg class="waves" xmlns="http://www.w3.org/2000/svg"
-           xmlns:xlink="http://www.w3.org/1999/xlink"
-           viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-        <defs>
-          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 
-            58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-        </defs>
-        <g class="parallax">
-          <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(229, 242, 248, 0.6)" />
-          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(229, 242, 248, 0.473)" />
-          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(229, 242, 248, 0.35)" />
-          <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(229, 242, 248, 0.2)" />
-        </g>
-      </svg>
-    </div>
+  <div class="footer-waves">
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 
+          58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+      </defs>
+      <g class="parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(229, 242, 248, 0.6)" />
+        <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(229, 242, 248, 0.473)" />
+        <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(229, 242, 248, 0.35)" />
+        <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(229, 242, 248, 0.2)" />
+      </g>
+    </svg>
+  </div>
 
-    <footer>
-      <div class="navbar footernav">
-        <div class="footerlogo">
-          <img class="Headingtitleimg" src="Media/Logofiles/Asset 5 blk.svg" alt="N.Smart Logo" />
-          <h3>Noah Smart Media</h3>
-        </div>
-
-        <div class="footer-content">
-          <ul>
-            <li>
-              <a href="#" onclick="copyEmailToClipboard(event)">
-                <img class="footContacts" src="Media/EmailAsset 7@3x.png" alt="Email contact" />
-              </a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/noah-smart-889171284/" target="_blank">
-                <img class="footContacts" src="Media/Asset 12@3x.png" alt="LinkedIn contact" />
-              </a>
-            </li>
-          </ul>
-          <a class="Phlink" href="tel:+61429496521">+61 429 496 521</a>
-        </div>
+  <footer>
+    <div class="navbar footernav">
+      <div class="footerlogo">
+        <img class="Headingtitleimg" src="Media/Logofiles/Asset 5 blk.svg" alt="N.Smart Logo" />
+        <h3>Noah Smart Media</h3>
       </div>
-      <h4>&copy; 2024 Noah Smart Media </h4>
-    </footer>
 
- 
+      <div class="footer-content">
+        <ul>
+          <li>
+            <a href="#" onclick="copyEmailToClipboard(event)">
+              <img class="footContacts" src="Media/EmailAsset 7@3x.png" alt="Email contact" />
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/noah-smart-889171284/" target="_blank">
+              <img class="footContacts" src="Media/Asset 12@3x.png" alt="LinkedIn contact" />
+            </a>
+          </li>
+        </ul>
+        <a class="Phlink" href="tel:+61429496521">+61 429 496 521</a>
+      </div>
+    </div>
+    <h4>&copy; 2024 Noah Smart Media </h4>
+  </footer>
 
   <!-- Scripts -->
   <script>
@@ -189,7 +187,7 @@
         });
 
         if (response.ok) {
-          window.location.href = "Thankyou.html"; // Update if on production
+          window.location.href = "Thankyou/";  /* Changed from Thankyou.html */
         } else {
           alert("Form submission failed. Please try again.");
         }
