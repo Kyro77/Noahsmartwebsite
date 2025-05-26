@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 const header = document.getElementById('mainHeader');
+let lastScroll = 0; // <-- Initialize the variable
 
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
@@ -94,5 +95,3 @@ window.addEventListener('scroll', () => {
 
   lastScroll = currentScroll;
 });
-
-  
