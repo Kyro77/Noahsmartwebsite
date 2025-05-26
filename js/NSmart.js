@@ -79,6 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
+const header = document.getElementById('mainHeader');
+
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
 
@@ -92,4 +94,5 @@ window.addEventListener('scroll', () => {
 
   lastScroll = currentScroll;
 });
+
   
