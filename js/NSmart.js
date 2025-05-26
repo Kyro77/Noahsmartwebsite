@@ -77,4 +77,19 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Failed to copy email: ", err);
     });
   }
+
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+
+  if (currentScroll > lastScroll && currentScroll > 50) {
+    // Scrolling down - hide header
+    header.classList.add('hidden');
+  } else {
+    // Scrolling up - show header
+    header.classList.remove('hidden');
+  }
+
+  lastScroll = currentScroll;
+});
   
