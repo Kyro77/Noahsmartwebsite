@@ -69,6 +69,18 @@ header {
   box-shadow: rgba(4, 44, 90, 0.24) 0px 3px 20px 0px;
 }
 
+header {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#mainHeader.hidden {
+  opacity: 0;
+  transform: translateY(-100%); 
+}
+
+
+
+
 .navbar {
   max-width: 1200px;
   height: 5.5rem;
