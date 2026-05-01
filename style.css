@@ -1,0 +1,79 @@
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: white;
+      font-family: "Sono", sans-serif;
+    }
+
+    a{
+      color: #aaa;
+      text-decoration: none;
+      
+    }
+    /* ---------------- CANVAS ---------------- */
+    canvas {
+      display: block;
+      cursor: grab;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    canvas:active {
+      cursor: grabbing;
+    }
+
+    /* ---------------- HINT ---------------- */
+    .hint {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      font-size: 12px;
+      color: #aaa;
+      user-select: none;
+      z-index: 20;
+    }
+
+    /* ---------------- SIDEBAR ---------------- */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 220px;
+
+  background-color: rgba(255, 255, 255, 0.95);
+
+  display: flex;
+  align-items: center;      /* vertical center */
+  justify-content: center;  /* center content block */
+
+  padding: 30px 20px;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+.sidebar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  align-items: flex-start;
+}
+
+    .sidebar ul li {
+      font-size: 16px;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #000;
+    }
+
+    .sidebar ul li a:hover {
+      color: #666;
+    }
