@@ -1,151 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
 
-    <title>Noah Smart Media</title>
-    <link rel="icon" href="NSM.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link rel="stylesheet" href="https://use.typekit.net/vzj4wsg.css">
-    <link href="https://fonts.googleapis.com/css2?family=Mitr&family=Sono:wght@200..800&display=swap" rel="stylesheet">
-
-    <meta name="description" content="Offering expert web development, graphic design, photography, videography, and social media services in Adelaide, South Australia. Providing custom websites, branding, visual content, and digital solutions tailored to help local businesses stand out and grow.">
-    <meta name="keywords" content="web development Adelaide, graphic design Adelaide, website design South Australia, Adelaide branding, digital design Adelaide, Photography and Videography, Social Media Content">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Noah Smart Media",
-      "url": "https://noahsmartmedia.com",
-      "logo": "https://noahsmartmedia/NSM.svg"
-    }
-    </script> 
-
-    <style>
-      img{
-          width: 30vw;
-          height: auto;
-          opacity: .1;
-          padding: 1rem;
-      }
-
-      body{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          margin: 0;
-          flex-direction: column;
-      }
-
-      h1{
-          font-family: sono;
-          font-size: 1rem;
-          font-weight: lighter;
-          color: #333;
-          margin: 0;
-      }
-
-      /* =========================
-         CLICK HINT ANIMATION
-      ========================== */
-
-      .click-hint {
-    position: absolute;
-    top: 50%;
-    right: 35px;
-    transform: translateY(-50%);
+.Inquireform {
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    gap: 12px;
-    opacity: 0.7;
-    pointer-events: none;
-    transition: 0.8s ease;
+    justify-content: center; /* vertical center */
+    align-items: center;     /* horizontal center */
+    flex-direction: column;
 }
-      .click-hint .text {
-          font-family: sono;
-          font-size: 0.8rem;
-          color: #333;
-          letter-spacing: 0.5px;
-      }
 
-      .click-hint .ripple {
-          position: absolute;
-          width: 14px;
-          height: 14px;
-          border: 1px solid #333;
-          border-radius: 50%;
-          animation: ripple 2.2s infinite ease-out;
-          opacity: 0;
-      }
+input{
+    background-color: transparent;
+    border: black 1px solid;
+}
 
-      .click-hint .ripple.delay {
-          animation-delay: 1.1s;
-      }
 
-      @keyframes ripple {
-          0% {
-              transform: scale(1);
-              opacity: 0.5;
-          }
-          70% {
-              opacity: 0.2;
-          }
-          100% {
-              transform: scale(3.5);
-              opacity: 0;
-          }
-      }
-    </style>
-  </head>
 
-  <body>
+.form_info > * {
+    margin-bottom: 20px;
+}
 
-    <img src="NSM.svg" alt="">
-    <h1>Noah Smart Media</h1>
+.form-row {
+    display: flex;
+    gap: 20px;
+}
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
+.form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
-        // Create click hint element
-        const hint = document.createElement("div");
-        hint.className = "click-hint";
+.submitinquiry {
+    margin-top: 10px;
+}
 
-        hint.innerHTML = `
-          <div class="ripple"></div>
-          <div class="ripple delay"></div>
-          <div class="text">click anywhere</div>
-        `;
+h1{
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
 
-        document.body.appendChild(hint);
+#notes {
+    resize: none;
+    background-color: transparent;
 
-        // Auto fade after a few seconds
-        const fadeTimer = setTimeout(() => {
-          hint.style.opacity = "0";
-          hint.style.transform = "translateY(10px)";
-        }, 4000);
+}
 
-        // Click → fade + redirect
-        document.addEventListener("click", () => {
-          clearTimeout(fadeTimer);
+.submitinquiry{
+    background-color: rgba(255, 255, 255, 0);
+    padding: 10px 20px;
+}
 
-          hint.style.opacity = "0";
-          hint.style.transform = "scale(0.9)";
-          hint.style.transition = "0.3s ease";
 
-          setTimeout(() => {
-            window.location.href = "/NSM/index.html";
-          }, 200);
-        });
+</style>
+<body>
 
-      });
-    </script>
+    
+    
+<div class="sidebar">
+    <ul>
+        <li><img src="/NSM.svg" alt="Logo" style="width:80px;"></li>
+        <li><a href="/NSM/index.html">NoahSmartMedia</a></li>
+        <li><a href="/Contact/index.html">Contact</a></li>
+    </ul>
+</div>
 
-  </body>
+<div class="hint">NSM - 2023 - portfolio - <span><a href="https://www.instagram.com/noahsmartmedia/">Click for Instagram</a></span></div>
+
+
+
+  <!-- Inquiry Form -->
+   
+  <main class="Inquireform">
+    <h1>Contact</h1>
+    <div>
+    
+    <form id="inquiryForm" class="form_info" method="POST">
+      <div class="form-row">
+        <div class="form-item">
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
+        </div>
+
+        <div class="form-item">
+          <label for="phone">Telephone:</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" />
+        </div>
+      </div>
+
+      <div class="form-item">
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required autocomplete="email" />
+      </div>
+
+     
+      <div class="form-item">
+        <label for="notes">Details:</label>
+        <textarea id="notes" name="notes" rows="8"  required></textarea>
+      </div>
+
+      <!-- Honeypot field for spam bots -->
+      <input type="text" name="_gotcha" style="display:none" aria-hidden="true" />
+
+      <button class="submitinquiry" type="submit" id="submitButton">Submit </button>
+    </form>
+    </div>
+  </main>
+    
+</body>
+
+<script>
+if (window.innerWidth <= 768) { // only run on mobile
+    const sidebar = document.querySelector('.sidebar');
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        if (Math.abs(touchEndX - touchStartX) < 10) {
+            sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
+        }
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        let moveX = e.touches[0].clientX;
+        if (moveX - touchStartX > 50) {
+            sidebar.style.display = 'block';
+        }
+    });
+}
+</script>
+
+
+
 </html>
