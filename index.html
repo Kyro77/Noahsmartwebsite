@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noah Smart Media </title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sono:wght@300;400;600&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <ul>
+    <li><img src="/NSM.svg" alt="Logo" style="width:80px;"></li>
+    <li><a href="NSM/index.html">NoahSmartMedia</a></li>
+    <li><a href="Contact/index.html">Contact</a></li>
+  </ul>
+</div>
+
+<div class="hint">NSM - 2023 - portfolio - <span><a href="https://www.instagram.com/noahsmartmedia/">Click for Instagram</a></span></div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+/* ---------------- CAMERA ---------------- */
+let camera = { x: 0, y: 0, zoom: 1.8 };
+
+/* ---------------- INPUT ---------------- */
+let isDragging = false;
+let dragMoved = false;
+let lastMouse = { x: 0, y: 0 };
+let dragStart = { x: 0, y: 0 };
+
+/* ---------------- BACKGROUND ---------------- */
+const bgImage = new Image();
+bgImage.src = "background.png";
+let bgPattern = null;
+
+bgImage.onload = () => {
+  bgPattern = ctx.createPattern(bgImage, "repeat");
+};
+
+/* ---------------- LOGO ---------------- */
+const logoImage = new Image();
+logoImage.src = "./NSM.svg";
+
+/* ---------------- GROUP DATA ---------------- */
+const groups = [
+  {
+    title: "Web Development",
+    url: "",
+    items: [
+      "./works/Websites/NSM-w-(8).webp",
+      "./works/Websites/NSM-w-(4).webp",
+      "./works/Websites/NSM-w-(3).webp",
+      "./works/Websites/NSM-w-(5).webp",
+      "./works/Websites/NSM-w-(6).webp",
+      "./works/Websites/NSM-w-(7).webp",
+      "./works/Websites/NSM-w-(1).webp",
+      "./works/Websites/NSM-w-(9).webp",
+      "./works/Websites/NSM-w-(10).webp"
+      
+    ]
+  },
+  {
+    title: "Socials",
+    url: "https://www.instagram.com/noahsmartmedia/",
+    items: [
+      "./works/socials/NSM-s-(2).webp",
+      "./works/socials/NSM-s-(3).webp",
+      "./works/socials/NSM-s-(4).webp"
+    ]
+  },
+  {
+    title: "Graphic Design",
+    url: "",
+    items: [
+      "./works/Graphics/NSM-g-(1).webp",
+      "./works/Graphics/NSM-g-(2).webp",
+      "./works/Graphics/NSM-g-(3).webp",
+      "./works/Graphics/NSM-g-(5).webp",
+      "./works/Graphics/NSM-g-(4).webp",
+      "./works/Graphics/NSM-g-(6).webp"
+    ]
+  },
+  {
+    title: "Photography",
+    url: "",
+    items: [
+      "./works/Photography/NSM-p-(1).webp",
+      "./works/Photography/NSM-p-(2).webp",
+      "./works/Photography/NSM-p-(3).webp",
+      "./works/Photography/NSM-p-(4).webp",
+      "./works/Photography/NSM-p-(5).webp",
+      "./works/Photography/NSM-p-(6).webp",
+      "./works/Photography/NSM-p-(7).webp",
+      "./works/Photography/NSM-p-(8).webp",
+      "./works/Photography/NSM-p-(9).webp",
+      "./works/Photography/NSM-p-(10).webp",
+      "./works/Photography/NSM-p-(11).webp",
+      "./works/Photography/NSM-p-(12).webp",
+      "./works/Photography/NSM-p-(13).webp",
+      "./works/Photography/NSM-p-(14).webp",
+      "./works/Photography/NSM-p-(15).webp"
+    ]
+  }
+];
+
+/* ---------------- SPIRAL ---------------- */
+function spiral(i) {
+  const angle = i * 2.6;
+  const radius = 220 * Math.sqrt(i + 1);
+
+  return {
+    x: Math.cos(angle) * radius,
+    y: Math.sin(angle) * radius
+  };
+}
+
+/* ---------------- BUILD CLUSTERS ---------------- */
+function generateClusters() {
+  const radius = 1700;
+
+  return groups.map((g, gi) => {
+    const angle = (gi / groups.length) * Math.PI * 2;
+
+    return {
+      title: g.title,
+      url: g.url,
+      pos: {
+        x: Math.cos(angle) * radius,
+        y: Math.sin(angle) * radius
+      },
+      items: g.items.map((src, i) => ({
+        src,
+        ...spiral(i),
+
+        rot: (Math.random() - 0.5) * 0.18,
+
+        baseWidth: 220 + Math.random() * 120,
+        alpha: 0.92 + Math.random() * 0.06
+      }))
+    };
+  });
+}
+
+const nodes = generateClusters();
+
+/* ---------------- LAZY IMAGE SYSTEM ---------------- */
+const imageCache = {};
+const loadingQueue = new Set();
+
+function getImage(src) {
+  if (imageCache[src]) return imageCache[src];
+
+  const img = new Image();
+
+  if (!loadingQueue.has(src)) {
+    loadingQueue.add(src);
+    img.src = src;
+  }
+
+  imageCache[src] = img;
+  return img;
+}
+
+/* ---------------- VIEWPORT CHECK ---------------- */
+function isNearCamera(x, y, margin = 2000) {
+  return (
+    Math.abs(x - camera.x) < margin &&
+    Math.abs(y - camera.y) < margin
+  );
+}
+
+/* ---------------- DRAW ---------------- */
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.save();
+
+  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.scale(camera.zoom, camera.zoom);
+  ctx.translate(-camera.x, -camera.y);
+
+  /* BACKGROUND */
+  if (bgPattern) {
+    ctx.fillStyle = bgPattern;
+    ctx.fillRect(-5000, -5000, 10000, 10000);
+  }
+
+  /* LOGO */
+  const logoSize = 160;
+
+  if (logoImage.complete) {
+    ctx.save();
+
+    const aspect = logoImage.width / logoImage.height || 1;
+
+    let w = logoSize;
+    let h = logoSize;
+
+    if (aspect > 1) h = logoSize / aspect;
+    else w = logoSize * aspect;
+
+    ctx.globalAlpha = 0.1;
+
+    ctx.drawImage(logoImage, -w / 2, -h / 2, w, h);
+
+    ctx.restore();
+  }
+
+  /* GROUPS */
+  nodes.forEach(node => {
+    const gx = node.pos.x;
+    const gy = node.pos.y;
+
+    ctx.font = "16px 'Sono', monospace";
+    ctx.fillStyle = "black";
+    ctx.fillText(node.title, gx, gy);
+
+    node.items.forEach(item => {
+      const img = getImage(item.src);
+
+      if (!isNearCamera(node.pos.x, node.pos.y)) return;
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+
+      const aspect = img.naturalWidth / img.naturalHeight;
+
+      let w = item.baseWidth;
+      let h = w / aspect;
+
+      const maxHeight = 260;
+      if (h > maxHeight) {
+        h = maxHeight;
+        w = maxHeight * aspect;
+      }
+
+      /* EXTRA SPACING FOR PHOTOGRAPHY */
+      let spacing = node.title === "Photography" ? 1.5 : 1;
+
+      const titleHeight = 40;
+      const safeStartY = gy + titleHeight + 100;
+
+      const x = gx + item.x * spacing;
+      const y = safeStartY + Math.abs(item.y) * spacing;
+
+      ctx.save();
+
+      ctx.translate(x, y);
+      ctx.rotate(item.rot);
+
+      ctx.globalAlpha = item.alpha;
+
+      ctx.drawImage(img, -w / 2, -h / 2, w, h);
+
+      ctx.restore();
+    });
+  });
+
+  ctx.restore();
+  requestAnimationFrame(draw);
+}
+
+/* ---------------- DRAG ---------------- */
+canvas.addEventListener("mousedown", e => {
+  isDragging = true;
+  dragMoved = false;
+  dragStart = { x: e.clientX, y: e.clientY };
+  lastMouse = { x: e.clientX, y: e.clientY };
+});
+
+canvas.addEventListener("mousemove", e => {
+  if (!isDragging) return;
+
+  const dx = e.clientX - lastMouse.x;
+  const dy = e.clientY - lastMouse.y;
+
+  camera.x -= dx / camera.zoom;
+  camera.y -= dy / camera.zoom;
+
+  lastMouse = { x: e.clientX, y: e.clientY };
+
+  const moved =
+    Math.abs(e.clientX - dragStart.x) +
+    Math.abs(e.clientY - dragStart.y);
+
+  if (moved > 5) dragMoved = true;
+});
+
+canvas.addEventListener("mouseup", () => (isDragging = false));
+canvas.addEventListener("mouseleave", () => (isDragging = false));
+
+/* ---------------- CLICK ---------------- */
+canvas.addEventListener("click", e => {
+  if (dragMoved) return;
+
+  const rect = canvas.getBoundingClientRect();
+
+  const mx =
+    (e.clientX - rect.left - canvas.width / 2) / camera.zoom + camera.x;
+  const my =
+    (e.clientY - rect.top - canvas.height / 2) / camera.zoom + camera.y;
+
+  nodes.forEach(node => {
+    const dx = mx - node.pos.x;
+    const dy = my - node.pos.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist < 350) {
+      window.open(node.url, "_blank");
+    }
+  });
+});
+
+/* ---------------- ZOOM ---------------- */
+canvas.addEventListener("wheel", e => {
+  e.preventDefault();
+
+  const zoomSpeed = 0.0015;
+  camera.zoom -= e.deltaY * zoomSpeed;
+
+  camera.zoom = Math.min(Math.max(camera.zoom, 0.9), 2.3);
+});
+
+/* ---------------- RESIZE ---------------- */
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+/* ---------------- START ---------------- */
+camera.x = 0;
+camera.y = 0;
+
+draw();
+</script>
+</body>
+</html>
