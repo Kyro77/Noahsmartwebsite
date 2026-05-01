@@ -345,6 +345,26 @@ camera.x = 0;
 camera.y = 0;
 
 draw();
+
+
+  const images = document.querySelectorAll("img[data-src]");
+
+const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+
+    const img = entry.target;
+    img.src = img.dataset.src;
+
+    img.onload = () => img.classList.add("loaded");
+
+    obs.unobserve(img);
+  });
+}, {
+  rootMargin: "300px" // 👈 loads BEFORE visible
+});
+
+images.forEach(img => observer.observe(img));
 </script>
 </body>
 </html>
