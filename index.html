@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Noah Smart Media</title>
+    <link rel="icon" href="NSM.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="https://use.typekit.net/vzj4wsg.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mitr&family=Sono:wght@200..800&display=swap" rel="stylesheet">
+
+    <meta name="description" content="Offering expert web development, graphic design, photography, videography, and social media services in Adelaide, South Australia. Providing custom websites, branding, visual content, and digital solutions tailored to help local businesses stand out and grow.">
+    <meta name="keywords" content="web development Adelaide, graphic design Adelaide, website design South Australia, Adelaide branding, digital design Adelaide, Photography and Videography, Social Media Content">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Noah Smart Media",
+      "url": "https://noahsmartmedia.com",
+      "logo": "https://noahsmartmedia/NSM.svg"
+    }
+    </script> 
+
+    <style>
+      img{
+          width: 30vw;
+          height: auto;
+          opacity: .1;
+          padding: 1rem;
+      }
+
+      body{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+          flex-direction: column;
+      }
+
+      h1{
+          font-family: sono;
+          font-size: 1rem;
+          font-weight: lighter;
+          color: #333;
+          margin: 0;
+      }
+
+      /* =========================
+         CLICK HINT ANIMATION
+      ========================== */
+
+      .click-hint {
+    position: absolute;
+    top: 50%;
+    right: 35px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0.7;
+    pointer-events: none;
+    transition: 0.8s ease;
+}
+      .click-hint .text {
+          font-family: sono;
+          font-size: 0.8rem;
+          color: #333;
+          letter-spacing: 0.5px;
+      }
+
+      .click-hint .ripple {
+          position: absolute;
+          width: 14px;
+          height: 14px;
+          border: 1px solid #333;
+          border-radius: 50%;
+          animation: ripple 2.2s infinite ease-out;
+          opacity: 0;
+      }
+
+      .click-hint .ripple.delay {
+          animation-delay: 1.1s;
+      }
+
+      @keyframes ripple {
+          0% {
+              transform: scale(1);
+              opacity: 0.5;
+          }
+          70% {
+              opacity: 0.2;
+          }
+          100% {
+              transform: scale(3.5);
+              opacity: 0;
+          }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <img src="NSM.svg" alt="">
+    <h1>Noah Smart Media</h1>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+
+        // Create click hint element
+        const hint = document.createElement("div");
+        hint.className = "click-hint";
+
+        hint.innerHTML = `
+          <div class="ripple"></div>
+          <div class="ripple delay"></div>
+          <div class="text">click anywhere</div>
+        `;
+
+        document.body.appendChild(hint);
+
+        // Auto fade after a few seconds
+        const fadeTimer = setTimeout(() => {
+          hint.style.opacity = "0";
+          hint.style.transform = "translateY(10px)";
+        }, 4000);
+
+        // Click → fade + redirect
+        document.addEventListener("click", () => {
+          clearTimeout(fadeTimer);
+
+          hint.style.opacity = "0";
+          hint.style.transform = "scale(0.9)";
+          hint.style.transition = "0.3s ease";
+
+          setTimeout(() => {
+            window.location.href = "/NSM/index.html";
+          }, 200);
+        });
+
+      });
+    </script>
+
+  </body>
+</html>
