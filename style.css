@@ -48,13 +48,27 @@
   background-color: rgba(255, 255, 255, 0.95);
 
   display: flex;
-  align-items: center;      /* vertical center */
-  justify-content: center;  /* center content block */
+  align-items: center;      
+  justify-content: center;  
 
   padding: 30px 20px;
   z-index: 10;
   backdrop-filter: blur(8px);
 }
+
+@media (max-width: 1024px) {
+  .sidebar {
+    height: 18vh; 
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    height: 18vh; 
+  }
+}
+
 
 .sidebar ul {
   list-style: none;
